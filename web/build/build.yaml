@@ -19,10 +19,16 @@ steps:
     verbose: true
 
 # Package Angular App
-- script: npm run dist
+- script: npm run build
   displayName: Package Angular App
   workingDirectory: 'web/src/signalr-web/SignalRMiddleware/EventApp'
 
+- task: CopyFiles@2
+  displayName: Copy Dist Files
+  inputs: {
+    SourceFolder: 'web/src/signalr-web/SignalRMiddleware/EventApp/dist',
+    TargetFolder: 'web/src/signalr-web/SignalRMiddleware/SignalRMiddleware/wwwroot'
+  }
 # Build the SignalR ASP.NET WebApp
 - task: DotNetCoreCLI@2
   inputs:
